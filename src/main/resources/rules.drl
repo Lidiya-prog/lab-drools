@@ -1,0 +1,55 @@
+package rules
+
+import ru.itmo.databases.model.LoyalityStatus
+import  ru.itmo.databases.model.Flight;
+global ru.itmo.databases.model.FlightMiles FlightMiles;
+
+rule "Classic"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+      $s : Flight(loyalityStatus == LoyalityStatus.CLASSIC)
+    then
+       FlightMiles.setMiles($s.getFlightDistance()/2);
+end
+
+rule "Classic Junior"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+      $s : Flight(loyalityStatus == LoyalityStatus.CLASSIC_JUNIOR)
+    then
+       FlightMiles.setMiles($s.getFlightDistance()/4*3);
+end
+
+rule "Classic Master"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+      $s : Flight(loyalityStatus == LoyalityStatus.CLASSIC_MASTER)
+    then
+       FlightMiles.setMiles($s.getFlightDistance());
+end
+
+rule "Classic Expert"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+      $s : Flight(loyalityStatus == LoyalityStatus.CLASSIC_EXPERT)
+    then
+       FlightMiles.setMiles($s.getFlightDistance()*3/2);
+end
+
+rule "Classic Top"
+    no-loop true
+    lock-on-active true
+    salience 1
+    when
+      $s : Flight(loyalityStatus == LoyalityStatus.CLASSIC_TOP)
+    then
+       FlightMiles.setMiles($s.getFlightDistance()*2);
+end
